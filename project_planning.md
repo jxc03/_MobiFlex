@@ -13,7 +13,7 @@
 - **Static Flexibility:** Hamstring stretch - sitting and reaching toward your toes, holding 20–30 seconds.
 - **Dynamic Flexibility:** Leg swings - forward/backward or side-to-side.
 - **Joint Mobility:** Ankle dorsiflexion rocks - knee over toes while heel stays down.
-- **Dynamic Mobility:** Walking lunges with rotation - step → lunge → rotate toward front leg.
+- **Dynamic Mobility:** Walking lunges with rotation - step -> lunge -> rotate toward front leg.
 
 ---
 
