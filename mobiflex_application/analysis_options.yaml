@@ -8,8 +8,9 @@
 # The following line activates a set of recommended lints for Flutter apps,
 # packages, and plugins designed to encourage good coding practices.
 include: 
-- package:lints/recommended.yaml
+  - package:lints/recommended.yaml # To enable static analysis which finds problems before executing a single line of code
 
+# Enabling stricter type checks
 analyzer:
   language:
     strict-casts: true
@@ -28,6 +29,7 @@ linter:
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
+    - public_member_api_docs # To flag any public class/method missing a /// comment
     # avoid_print: false  # Uncomment to disable the `avoid_print` rule
     # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
 
