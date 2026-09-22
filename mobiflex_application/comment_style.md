@@ -1,8 +1,7 @@
 # Comment Style Guide
 
-This file exists so that comments stay useful as the codebase grows. 
+So that comments stay useful as the codebase grows. 
 The rule behind every guideline below is the same: **comment the *why*, not the *what*** 
-Dart syntax already says what a line does; a comment earns its place only when it adds something the code can't say for itself.
 
 ---
 
@@ -48,7 +47,7 @@ setState(() => _isLoading = true);
 ```
 
 If you're about to write a comment and it just repeats the next line in
-English, delete it — it's adding reading time without adding information.
+English, delete it - it's adding reading time without adding information.
 
 Good reasons to write an inline comment:
 - A non-obvious workaround ("Firebase throws X here on iOS simulators only")
