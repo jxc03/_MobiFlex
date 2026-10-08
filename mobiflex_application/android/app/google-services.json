@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "378164082983",
+    "project_id": "mobiflex-a0176",
+    "storage_bucket": "mobiflex-a0176.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:378164082983:android:eb1b334f5d5c007f411102",
+        "android_client_info": {
+          "package_name": "com.example.mobiflex_application"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtpm2m6JuGhGIHDn194h07Gs0pJ68CD2Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

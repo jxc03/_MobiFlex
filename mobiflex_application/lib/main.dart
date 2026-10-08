@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+import 'firebase_options.dart';
+import 'screens/login_screen.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // PREPARE FLUTTER BEFORE WE USE A PLUGIN
+
+  await Firebase.initializeApp( // SETS UP FIREBASE USING THE GENERATED CONFIGURATION + AWAIT- WAITS FOR SETUP TO FINISH BEFORE CALLING RUNAPP
+    options: DefaultFirebaseOptions.currentPlatform, // SELECTS THE CONFIGURATION FOR WEB/ANDROID AUTOMA
+  );
+
   runApp(const MyApp());
 }
 
@@ -30,7 +40,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const LoginScreen(),
     );
   }
 }
