@@ -801,17 +801,27 @@ These should not complicate the MVP until there is a clear requirement for them.
 
 ---
 
-## 24. Open Decisions Before Coding
+## 24. Final Decisions Before Coding
 
-Resolve or confirm these during implementation planning:
-- [ ] Final password requirements.
-- [ ] Exact welcome/auth screen layout.
-- [ ] Whether guest users can save all progress or only selected data.
-- [ ] When the app should encourage a guest to create an account.
-- [ ] Account deletion UX and confirmation flow.
-- [ ] Final `AuthController` state-management approach.
-- [ ] Exact Firestore path for user-owned data.
-- [ ] Whether email verification is required before any specific feature.
-- [ ] Which authentication events should be logged for debugging/analytics.
+The main authentication decisions are now agreed for the MVP.
 
-Once these are agreed, implementation can begin without needing to redesign the authentication flow midway through development.
+| Area | Final decision |
+|---|---|
+| Password             | Minimum 6 characters including at least 1 uppercase character and 1 special character |
+| Welcome screen       | `Continue without account` is the primary action with `Create account` and `Sign in` also available |
+| Guest identity       | Firebase Anonymous Authentication |
+| Guest saving         | Guests can keep core progress such as sessions, favourites and preferences; registered accounts receive stronger long term account benefits |
+| Registration prompts | One soft prompt after the first completed session, a permanent upgrade option in Profile, and contextual prompts for account only features |
+| Account deletion     | Settings -> Account -> Delete Account -> warning -> re-authenticate when required -> final confirmation -> remove account and user owned data |
+| State management     | Riverpod with authentication identity separated from user triggered authentication actions |
+| User-owned Firestore data | `/users/{uid}` with user specific subcollections |
+| Email verification   | Send/encourage verification but don't block normal MVP use or saving solely because the email is unverified |
+| Logging              | Log authentication lifecycle, results and safe failure categories; never log passwords, tokens or unnecessary personal data |
+
+### Documentation split
+
+To keep the project documentation manageable:
+- detailed authentication behaviour and acceptance criteria live in `authentication_user_stories.md`;
+- implementation specific architecture and provider/repository contracts should be written in a small `authentication_implementation.md` when coding begins;
+- completed work and implementation notes can later be recorded in the developer log.
+
