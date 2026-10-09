@@ -5,6 +5,7 @@ import 'reset_password_screen.dart';
 
 /// The login screen for MobiFlex.
 class LoginScreen extends StatefulWidget {
+  /// Creates the login screen.
   const LoginScreen({super.key});
 
   @override
@@ -146,24 +147,25 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text(_isLoading ? 'Logging in...' : 'Log in'),
                     ),
                     TextButton(
-                    onPressed: _isLoading
-                        ? null
-                        : () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => const ResetPasswordScreen(),
-                              ),
-                            );
-                          },
-                    child: const Text('Forgot password?'),
-                  ),
+                      onPressed:
+                          _isLoading
+                              ? null
+                              : () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute<void>(
+                                    builder: (_) => const ResetPasswordScreen(),
+                                  ),
+                                );
+                              },
+                      child: const Text('Forgot password?'),
+                    ),
                     TextButton(
                       onPressed:
                           _isLoading
                               ? null
                               : () {
                                 Navigator.of(context).push(
-                                  MaterialPageRoute(
+                                  MaterialPageRoute<void>(
                                     builder:
                                         (context) => const RegisterScreen(),
                                   ),

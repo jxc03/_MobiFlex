@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
-/// The registration screen for MobiFlex.
+/// The account registration screen.
 class RegisterScreen extends StatefulWidget {
+  /// Creates the registration screen.
   const RegisterScreen({super.key});
 
   @override

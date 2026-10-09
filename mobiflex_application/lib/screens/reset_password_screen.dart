@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+/// Lets users request a password reset email.
 class ResetPasswordScreen extends StatefulWidget {
+  /// Creates the password reset screen.
   const ResetPasswordScreen({super.key});
 
   @override
@@ -35,9 +37,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
       if (!mounted) return;
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text(confirmation)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text(confirmation)));
     } on FirebaseAuthException catch (e) {
       if (!mounted) return;
 
@@ -50,9 +52,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         _ => 'Unable to request a reset link. Please try again.',
       };
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(message)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(message)));
     } catch (_) {
       if (!mounted) return;
 
@@ -100,8 +102,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
                         if (email.isEmpty) return 'Enter your email';
 
-                        if (!RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$')
-                            .hasMatch(email)) {
+                        if (!RegExp(
+                          r'^[^@\s]+@[^@\s]+\.[^@\s]+$',
+                        ).hasMatch(email)) {
                           return 'Enter a valid email address';
                         }
 

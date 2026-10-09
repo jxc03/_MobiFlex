@@ -4,7 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'home_screen.dart';
 import 'login_screen.dart';
 
+/// Displays the appropriate screen for the current Firebase session.
 class AuthGate extends StatelessWidget {
+  /// Creates the authentication gate.
   const AuthGate({super.key});
 
   @override
@@ -15,16 +17,16 @@ class AuthGate extends StatelessWidget {
         if (snapshot.hasError) {
           return const Scaffold(
             body: Center(
-              child: Text('Unable to check your session. Please restart the app.'),
+              child: Text(
+                'Unable to check your session. Please restart the app.',
+              ),
             ),
           );
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
+            body: Center(child: CircularProgressIndicator()),
           );
         }
 
