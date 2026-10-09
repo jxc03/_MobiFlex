@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'register_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'reset_password_screen.dart';
 
 /// The login screen for MobiFlex.
 class LoginScreen extends StatefulWidget {
@@ -144,10 +145,18 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: _isLoading ? null : _submit,
                       child: Text(_isLoading ? 'Logging in...' : 'Log in'),
                     ),
-                    const TextButton(
-                      onPressed: null,
-                      child: Text('Forgot password?'),
-                    ),
+                    TextButton(
+                    onPressed: _isLoading
+                        ? null
+                        : () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => const ResetPasswordScreen(),
+                              ),
+                            );
+                          },
+                    child: const Text('Forgot password?'),
+                  ),
                     TextButton(
                       onPressed:
                           _isLoading
