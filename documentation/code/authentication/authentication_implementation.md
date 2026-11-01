@@ -187,10 +187,6 @@ e34437525b309e24deabc01ba2796dc975dd97cd
 
 Key requirements: documentation/code/authentication/authentication_planning.md and authentication_user_stories.md in the main snapshot. Later code changes should trigger a review of the feature list, limitations, and verification record.
 
-### Where to keep this record
-
-Commit the Markdown reading equivalent at documentation/code/authentication/authentication_implementation.md. It is easy to review on GitHub and compare between commits. The Word version is available for reading and annotation; keep its content aligned if retaining both.
-
 ### Official references
 
 These references explain Firebase behaviour. The source files establish what MobiFlex actually implements.
