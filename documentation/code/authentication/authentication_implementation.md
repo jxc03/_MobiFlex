@@ -1,16 +1,16 @@
 # MobiFlex Authentication
 
-Updated 1 November 2026. Describes the uploaded authentication snapshot (`efe9bf3`).
+Updated 6 November 2026. Covers the initial authentication flow and login repository refactor.
 
 ## What I implemented
 
-I built the initial authentication flow using Flutter and Firebase Authentication:
+I built authentication using Flutter and Firebase Authentication:
 
 - Email/password registration with password confirmation.
-- Login, logout, and password reset through an emailed link.
-- Session restoration using Firebase's default persistence.
-- Required-field and email-format validation.
-- Loading feedback, prevention of repeated form submissions, and friendly error messages.
+- Login, logout, password-reset requests, and session restoration.
+- Required-field and email-format validation, loading feedback, and friendly errors.
+- An authentication repository for login, with injectable dependencies for testing.
+- App-level failures so the login screen no longer handles Firebase error codes.
 
 ## How the code works
 
@@ -18,35 +18,45 @@ Paths are relative to `mobiflex_application/lib/`.
 
 | File | Responsibility |
 | --- | --- |
-| `main.dart` | Initialises Firebase before starting the app. |
-| `screens/auth_gate.dart` | Listens to session changes and displays login or home, with loading/error states. |
-| `screens/login_screen.dart` | Validates input and requests sign-in. |
-| `screens/register_screen.dart` | Creates an account, signs the user in, and closes registration to reveal home. |
-| `screens/reset_password_screen.dart` | Requests a reset link without confirming whether an account exists. |
+| `main.dart` | Initialises Firebase and starts the app. |
+| `screens/auth_gate.dart` | Watches the Firebase session and displays login or home. |
+| `screens/login_screen.dart` | Validates input, calls the repository, and displays results. |
+| `data/repositories/auth_repository.dart` | Defines the sign-in contract. |
+| `data/repositories/firebase_auth_repository.dart` | Performs sign-in and translates Firebase errors into `AuthFailure`. |
+| `domain/auth/auth_failure.dart` | Defines invalid credentials, request limits, network, unavailable, and unknown failures. |
+| `screens/register_screen.dart` | Creates an account, signs it in, and closes registration to reveal home. |
+| `screens/reset_password_screen.dart` | Requests a reset link with a neutral confirmation. |
 | `screens/home_screen.dart` | Displays the placeholder home screen and provides logout. |
 
-Login and logout change the Firebase session. `AuthGate` responds automatically, so those actions do not need to push another home or login page. Registration uses `Navigator.pop()` because it was opened as a separate page above the gate.
+Login now follows `LoginScreen → AuthRepository → FirebaseAuthRepository → Firebase`. The repository translates backend errors; the screen chooses the user-facing message. Registration, reset, logout, and session listening still use Firebase directly.
 
-Firebase Authentication manages accounts and saved sessions. Controllers temporarily hold entered text; my code does not save passwords to a local file. Progress and favourites would need separate database storage and access rules.
+`AuthGate` responds automatically to sign-in and sign-out. Registration also calls `Navigator.pop()` because its page was pushed above the gate.
+
+Firebase manages accounts and saved sessions. Controllers temporarily hold input; my code does not save passwords to a local file. Progress and favourites will need separate database storage and access rules.
 
 ## What I learned
 
+- A repository contract separates authentication behaviour from the screen. Dependency injection lets tests supply a fake implementation.
+- App-level failures keep Firebase-specific error codes inside the repository.
 - Validators return an error message for invalid input, or `null` when validation passes.
-- `setState()` requests a rebuild after local state changes; `StreamBuilder` responds to session updates.
-- `await` waits for asynchronous operations. After waiting, `mounted` checks prevent updates to a removed screen.
-- Controllers provide access to field text and are released in `dispose()`.
-- Authentication identifies the user; backend permissions control access to data.
+- `setState()` requests UI updates; `await` waits for asynchronous work; `mounted` checks protect updates after a screen closes. Controllers are released in `dispose()`.
+- Authentication identifies a user; backend permissions control data access.
 
 ## Verification
 
-I previously confirmed registration, login, logout, browser-refresh session restoration, and password reset manually. During development, `flutter analyze` also returned **“No issues found!”**
+The old counter test has been replaced. Automated coverage now includes:
 
-These are earlier results, not a fresh test of this snapshot. Automated authentication tests are missing, and the existing counter test needs replacing. Future results should record the date, commit, platform, and outcome.
+- **Two login widget tests:** empty-field validation and loading/error recovery.
+- **Eight repository tests:** translation of seven recognised Firebase error codes and an unknown code.
+
+These tests use controlled dependencies without real Firebase requests. Session routing, registration, reset, and logout still need automated coverage.
+
+I previously confirmed the core authentication journeys manually and obtained **“No issues found!”** from the analyzer. Record subsequent analyzer and test results against the relevant commit.
 
 ## Next update
 
-1. Move Firebase calls out of screens into an authentication repository so behaviour can be tested independently.
-2. Replace the counter test with authentication tests covering validation, loading, failures, and session changes.
-3. Align registration with the agreed password policy, improve field loading behaviour, and add password visibility, autofill, and keyboard actions.
+1. Extend the repository to registration, password reset, and logout, with relevant tests.
+2. Separate session handling from Firebase types and test `AuthGate` transitions.
+3. Align registration with the agreed password policy; improve password visibility, autofill, keyboard actions, and loading behaviour.
 
-Guest access, guest-account upgrading, account deletion, email verification, and private-data security rules remain planned. The current registration form only requires a nonempty password and matching confirmation; the configured Firebase password policy still needs checking.
+Guest access, guest-account upgrading, account deletion, email verification, and private-data security rules remain planned. Registration currently requires a nonempty password and matching confirmation; Firebase password-policy configuration still needs checking.

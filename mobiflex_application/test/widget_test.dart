@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:mobiflex_application/domain/auth/auth_failure.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobiflex_application/data/repositories/auth_repository.dart';
@@ -58,15 +58,13 @@ void main() {
     expect(loadingButton.onPressed, isNull);
 
     // Simulate a failed request without contacting Firebase.
-    repository.pendingResult.completeError(
-      StateError('Simulated sign-in failure'),
-    );
+    repository.pendingResult.completeError(AuthFailure.invalidCredentials);
 
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
 
     expect(
-      find.text('Something went wrong. Please try again.'),
+      find.text('Unable to log in. Check your email and password.'),
       findsOneWidget,
     );
 
