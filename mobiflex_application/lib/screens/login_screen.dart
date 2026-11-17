@@ -3,16 +3,10 @@ import 'register_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'reset_password_screen.dart';
 
-import '../data/repositories/auth_repository.dart';
-import '../data/repositories/firebase_auth_repository.dart';
-
 /// The login screen for MobiFlex.
 class LoginScreen extends StatefulWidget {
-  /// Creates the screen with an optional authentication repository.
-  const LoginScreen({super.key, this.authRepository});
-
-  /// Allows tests to supply authentication behaviour without Firebase.
-  final AuthRepository? authRepository;
+  /// Creates the login screen.
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -24,16 +18,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _isLoading = false;
-  late final AuthRepository _authRepository;
-
-  @override
-  void initState() {
-    super.initState();
-
-    // Tests can provide a fake; normal app use defaults to Firebase.
-    _authRepository = widget.authRepository ?? FirebaseAuthRepository();
-  }
-
   @override
   void dispose() {
     _emailController.dispose();
@@ -49,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() => _isLoading = true);
 
     try {
-      await _authRepository.signIn(
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text,
       );
