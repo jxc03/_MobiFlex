@@ -19,6 +19,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _confirmPasswordController = TextEditingController();
 
   bool _isLoading = false;
+  bool _isPasswordHidden = true;
+  bool _isConfirmPasswordHidden = true;
+
   @override
   void dispose() {
     _emailController.dispose();
@@ -135,10 +138,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(height: 16),
                     TextFormField(
                       controller: _passwordController,
-                      obscureText: true,
-                      decoration: const InputDecoration(
+                      obscureText: _isPasswordHidden,
+                      decoration: InputDecoration(
                         labelText: 'Password',
-                        border: OutlineInputBorder(),
+                        border: const OutlineInputBorder(),
+                        suffixIcon: IconButton(
+                          tooltip:
+                              _isPasswordHidden
+                                  ? 'Show password'
+                                  : 'Hide password',
+                          icon: Icon(
+                            _isPasswordHidden
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                          onPressed: () {
+                            setState(
+                              () => _isPasswordHidden = !_isPasswordHidden,
+                            );
+                          },
+                        ),
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -151,10 +170,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(height: 16),
                     TextFormField(
                       controller: _confirmPasswordController,
-                      obscureText: true,
-                      decoration: const InputDecoration(
+                      obscureText: _isConfirmPasswordHidden,
+                      decoration: InputDecoration(
                         labelText: 'Confirm password',
-                        border: OutlineInputBorder(),
+                        border: const OutlineInputBorder(),
+                        suffixIcon: IconButton(
+                          tooltip:
+                              _isConfirmPasswordHidden
+                                  ? 'Show password'
+                                  : 'Hide password',
+                          icon: Icon(
+                            _isConfirmPasswordHidden
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                          onPressed: () {
+                            setState(
+                              () =>
+                                  _isConfirmPasswordHidden =
+                                      !_isConfirmPasswordHidden,
+                            );
+                          },
+                        ),
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
