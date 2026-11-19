@@ -17,6 +17,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  final _confirmPasswordFocus = FocusNode();
 
   bool _isLoading = false;
   bool _isPasswordHidden = true;
@@ -27,6 +28,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
+    _confirmPasswordFocus.dispose();
     super.dispose();
   }
 
@@ -115,6 +117,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     TextFormField(
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.next,
                       decoration: const InputDecoration(
                         labelText: 'Email',
                         border: OutlineInputBorder(),
@@ -139,6 +142,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     TextFormField(
                       controller: _passwordController,
                       obscureText: _isPasswordHidden,
+                      textInputAction: TextInputAction.done,
+                      onEditingComplete:
+                          () => _confirmPasswordFocus.requestFocus(),
                       decoration: InputDecoration(
                         labelText: 'Password',
                         border: const OutlineInputBorder(),
@@ -171,6 +177,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     TextFormField(
                       controller: _confirmPasswordController,
                       obscureText: _isConfirmPasswordHidden,
+                      focusNode: _confirmPasswordFocus,
+                      textInputAction: TextInputAction.done,
+                      onFieldSubmitted: (_) => _submit(),
                       decoration: InputDecoration(
                         labelText: 'Confirm password',
                         border: const OutlineInputBorder(),
