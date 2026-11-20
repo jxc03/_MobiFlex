@@ -1,6 +1,6 @@
 # MobiFlex Authentication
 
-Updated 1 November 2026. Describes the uploaded authentication snapshot (`efe9bf3`).
+Updated 1 November 2026. Describes the uploaded authentication snapshot (`3c6ffe0`).
 
 ## What I implemented
 
@@ -11,6 +11,8 @@ I built the initial authentication flow using Flutter and Firebase Authenticatio
 - Session restoration using Firebase's default persistence.
 - Required-field and email-format validation.
 - Loading feedback, prevention of repeated form submissions, and friendly error messages.
+
+- Users can show or hide their passwords and complete the login, registration, and password reset forms using the keyboard.
 
 ## How the code works
 
@@ -41,12 +43,12 @@ Firebase Authentication manages accounts and saved sessions. Controllers tempora
 
 I previously confirmed registration, login, logout, browser-refresh session restoration, and password reset manually. During development, `flutter analyze` also returned **“No issues found!”**
 
-These are earlier results, not a fresh test of this snapshot. Automated authentication tests are missing, and the existing counter test needs replacing. Future results should record the date, commit, platform, and outcome.
+These are earlier results, not a fresh test of this snapshot. Automated authentication tests are missing, the login widget test shows and hides a typed password and checks that the text stays the same. Future results should record the date, commit, platform, and outcome.
+
 
 ## Next update
 
 1. Move Firebase calls out of screens into an authentication repository so behaviour can be tested independently.
-2. Replace the counter test with authentication tests covering validation, loading, failures, and session changes.
-3. Align registration with the agreed password policy, improve field loading behaviour, and add password visibility, autofill, and keyboard actions.
+2. Align registration with the agreed password policy, improve field loading behaviour, autofill.
 
 Guest access, guest-account upgrading, account deletion, email verification, and private-data security rules remain planned. The current registration form only requires a nonempty password and matching confirmation; the configured Firebase password policy still needs checking.
