@@ -43,7 +43,7 @@ Firebase Authentication manages accounts and saved sessions. Controllers tempora
 
 I previously confirmed registration, login, logout, browser-refresh session restoration, and password reset manually. During development, `flutter analyze` also returned **“No issues found!”**
 
-These are earlier results, not a fresh test of this snapshot. Automated authentication tests are missing, the login widget test shows and hides a typed password and checks that the text stays the same. Future results should record the date, commit, platform, and outcome.
+These are earlier results, not a fresh test of this snapshot. Two login widget tests pass: one checks password visibility, and the other checks that an empty login form asks for both an email and a password, the login widget test shows and hides a typed password and checks that the text stays the same. Future results should record the date, commit, platform, and outcome.
 
 
 ## Next update

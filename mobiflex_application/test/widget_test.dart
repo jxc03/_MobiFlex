@@ -21,4 +21,14 @@ void main() {
     expect(passwordField().obscureText, isTrue);
     expect(passwordField().controller?.text, 'example123');
   });
+
+  testWidgets('Empty login shows both required field messages', (tester) async {
+  await tester.pumpWidget(const MaterialApp(home: LoginScreen()));
+
+  await tester.tap(find.text('Log in'));
+  await tester.pump();
+
+  expect(find.text('Enter your email'), findsOneWidget);
+  expect(find.text('Enter your password'), findsOneWidget);
+});
 }
