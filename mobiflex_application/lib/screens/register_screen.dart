@@ -142,7 +142,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     TextFormField(
                       controller: _passwordController,
                       obscureText: _isPasswordHidden,
-                      textInputAction: TextInputAction.done,
+                      textInputAction: TextInputAction.next,
                       onEditingComplete:
                           () => _confirmPasswordFocus.requestFocus(),
                       decoration: InputDecoration(
