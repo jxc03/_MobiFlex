@@ -13,6 +13,7 @@ I built the initial authentication flow using Flutter and Firebase Authenticatio
 - Loading feedback, prevention of repeated form submissions, and friendly error messages.
 
 - Users can show or hide their passwords and complete the login, registration, and password reset forms using the keyboard.
+- While Firebase processes a request, the form keeps the submitted values visible and prevents further edits. If the request fails, the fields unlock so the user can try again.
 
 ## How the code works
 
@@ -49,6 +50,6 @@ These are earlier results, not a fresh test of this snapshot. Two login widget t
 ## Next update
 
 1. Move Firebase calls out of screens into an authentication repository so behaviour can be tested independently.
-2. Align registration with the agreed password policy, improve field loading behaviour, autofill.
+2. Align registration with the agreed password policy, autofill.
 
 Guest access, guest-account upgrading, account deletion, email verification, and private-data security rules remain planned. The current registration form only requires a nonempty password and matching confirmation; the configured Firebase password policy still needs checking.

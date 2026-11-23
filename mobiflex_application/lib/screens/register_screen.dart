@@ -116,6 +116,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(height: 32),
                     TextFormField(
                       controller: _emailController,
+                      enabled: !_isLoading,
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
                       decoration: const InputDecoration(
@@ -141,6 +142,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(height: 16),
                     TextFormField(
                       controller: _passwordController,
+                      enabled: !_isLoading,
                       obscureText: _isPasswordHidden,
                       textInputAction: TextInputAction.next,
                       onEditingComplete:
@@ -176,6 +178,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(height: 16),
                     TextFormField(
                       controller: _confirmPasswordController,
+                      enabled: !_isLoading,
                       obscureText: _isConfirmPasswordHidden,
                       focusNode: _confirmPasswordFocus,
                       textInputAction: TextInputAction.done,

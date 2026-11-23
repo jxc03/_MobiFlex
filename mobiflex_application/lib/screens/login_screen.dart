@@ -105,6 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 32),
                     TextFormField(
                       controller: _emailController,
+                      enabled: !_isLoading,
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
                       decoration: const InputDecoration(
@@ -130,6 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 16),
                     TextFormField(
                       controller: _passwordController,
+                      enabled: !_isLoading,
                       obscureText: _isPasswordHidden,
                       textInputAction: TextInputAction.done,
                       onFieldSubmitted: (_) => _submit(),
